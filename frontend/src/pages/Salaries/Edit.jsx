@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams, Link } from 'react-router-dom';
-import { ArrowLeft, Save } from 'lucide-react';
 import { salaryAPI } from '../../utils/api';
 
 const EditSalary = () => {
@@ -104,7 +103,6 @@ const EditSalary = () => {
           to="/salaries"
           className="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
         >
-          <ArrowLeft className="h-4 w-4 mr-2" />
           Back to Salaries
         </Link>
       </div>
@@ -133,7 +131,7 @@ const EditSalary = () => {
               </label>
               <div className="mt-1 relative rounded-md shadow-sm">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <span className="text-gray-500 sm:text-sm">$</span>
+                  <span className="text-gray-500 sm:text-sm">RWF</span>
                 </div>
                 <input
                   type="number"
@@ -143,7 +141,7 @@ const EditSalary = () => {
                   min="0"
                   value={formData.grossSalary}
                   onChange={handleChange}
-                  className="pl-7 mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-gray-500 focus:border-gray-500"
+                  className="pl-12 mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-gray-500 focus:border-gray-500"
                   required
                 />
               </div>
@@ -155,7 +153,7 @@ const EditSalary = () => {
               </label>
               <div className="mt-1 relative rounded-md shadow-sm">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <span className="text-gray-500 sm:text-sm">$</span>
+                  <span className="text-gray-500 sm:text-sm">RWF</span>
                 </div>
                 <input
                   type="number"
@@ -165,7 +163,7 @@ const EditSalary = () => {
                   min="0"
                   value={formData.totalDeduction}
                   onChange={handleChange}
-                  className="pl-7 mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-gray-500 focus:border-gray-500"
+                  className="pl-12 mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-gray-500 focus:border-gray-500"
                   required
                 />
               </div>
@@ -177,7 +175,7 @@ const EditSalary = () => {
               </label>
               <div className="mt-1 relative rounded-md shadow-sm">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <span className="text-gray-500 sm:text-sm">$</span>
+                  <span className="text-gray-500 sm:text-sm">RWF</span>
                 </div>
                 <input
                   type="number"
@@ -187,7 +185,7 @@ const EditSalary = () => {
                   min="0"
                   value={formData.netSalary}
                   onChange={handleChange}
-                  className="pl-7 mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-gray-500 focus:border-gray-500 bg-gray-100"
+                  className="pl-12 mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-gray-500 focus:border-gray-500 bg-gray-100"
                   readOnly
                 />
               </div>
@@ -216,9 +214,8 @@ const EditSalary = () => {
             <button
               type="submit"
               disabled={saving}
-              className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-gray-900 hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
+              className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-black hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
             >
-              <Save className="h-4 w-4 mr-2" />
               {saving ? 'Saving...' : 'Save Changes'}
             </button>
           </div>

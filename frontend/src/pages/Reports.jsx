@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { BarChartBig, Users, DollarSign, Calendar, FileText, Printer, Download, Building2 } from 'lucide-react';
 import { reportAPI, employeeAPI } from '../utils/api';
 
 const Reports = () => {
@@ -72,9 +71,9 @@ const Reports = () => {
 
   const formatCurrency = (value) => {
     if (value === null || value === undefined) return 'N/A';
-    return new Intl.NumberFormat('en-US', {
+    return new Intl.NumberFormat('en-RW', {
       style: 'currency',
-      currency: 'USD',
+      currency: 'RWF',
       minimumFractionDigits: 0,
       maximumFractionDigits: 0,
     }).format(value);
@@ -325,8 +324,8 @@ const Reports = () => {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
           <div className="flex items-center">
-            <div className="p-3 rounded-full bg-blue-100 text-blue-600">
-              <Users className="h-8 w-8" />
+            <div className="p-3 rounded-full bg-gray-100 text-gray-600">
+              <div className="h-8 w-8 flex items-center justify-center font-bold">E</div>
             </div>
             <div className="ml-4">
               <p className="text-sm font-medium text-gray-500">Total Employees</p>
@@ -337,8 +336,8 @@ const Reports = () => {
 
         <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
           <div className="flex items-center">
-            <div className="p-3 rounded-full bg-green-100 text-green-600">
-              <DollarSign className="h-8 w-8" />
+            <div className="p-3 rounded-full bg-gray-100 text-gray-600">
+              <div className="h-8 w-8 flex items-center justify-center font-bold">₣</div>
             </div>
             <div className="ml-4">
               <p className="text-sm font-medium text-gray-500">Average Net Salary</p>
@@ -352,7 +351,7 @@ const Reports = () => {
         <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
           <div className="flex items-center">
             <div className="p-3 rounded-full bg-gray-100 text-gray-600">
-              <Building2 className="h-8 w-8" />
+              <div className="h-8 w-8 flex items-center justify-center font-bold">D</div>
             </div>
             <div className="ml-4">
               <p className="text-sm font-medium text-gray-500">Departments</p>
@@ -366,17 +365,16 @@ const Reports = () => {
       <div className="bg-white shadow-sm border border-gray-200 rounded-lg overflow-hidden">
         <div className="px-6 py-4 border-b border-gray-200 flex justify-between items-center">
           <div className="flex items-center">
-            <FileText className="h-5 w-5 mr-2 text-gray-500" />
             <h2 className="text-lg font-medium text-gray-900">Monthly Payroll Report</h2>
           </div>
           <div className="flex items-center space-x-4">
             <div className="flex items-center">
-              <Calendar className="h-5 w-5 mr-2 text-gray-500" />
+              <span className="mr-2 text-gray-500 text-sm">Month:</span>
               <input
                 type="month"
                 value={selectedMonth.slice(0, 7)}
                 onChange={(e) => handleMonthChange(e.target.value + '-01')}
-                className="border border-gray-300 rounded-md px-3 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="border border-gray-300 rounded-md px-3 py-1 focus:outline-none focus:ring-2 focus:ring-gray-500"
               />
             </div>
             <button
@@ -385,10 +383,9 @@ const Reports = () => {
               className={`inline-flex items-center px-3 py-1 border border-transparent text-sm font-medium rounded-md text-white focus:outline-none focus:ring-2 focus:ring-offset-2 ${
                 monthlyReport.length === 0
                   ? 'bg-gray-400 cursor-not-allowed'
-                  : 'bg-blue-600 hover:bg-blue-700 focus:ring-blue-500'
+                  : 'bg-black hover:bg-gray-800 focus:ring-gray-500'
               }`}
             >
-              <Printer className="h-4 w-4 mr-1" />
               Print
             </button>
           </div>
@@ -463,14 +460,13 @@ const Reports = () => {
       <div className="bg-white shadow-sm border border-gray-200 rounded-lg overflow-hidden">
         <div className="px-6 py-4 border-b border-gray-200 flex justify-between items-center">
           <div className="flex items-center">
-            <Users className="h-5 w-5 mr-2 text-gray-500" />
             <h2 className="text-lg font-medium text-gray-900">Employee Salary History</h2>
           </div>
           <div className="flex items-center space-x-4">
             <select
               value={selectedEmployee}
               onChange={handleEmployeeChange}
-              className="border border-gray-300 rounded-md px-3 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="border border-gray-300 rounded-md px-3 py-1 focus:outline-none focus:ring-2 focus:ring-gray-500"
             >
               <option value="">Select an employee</option>
               {employees.map((employee) => (
@@ -485,10 +481,9 @@ const Reports = () => {
               className={`inline-flex items-center px-3 py-1 border border-transparent text-sm font-medium rounded-md text-white focus:outline-none focus:ring-2 focus:ring-offset-2 ${
                 !selectedEmployee || !employeeSalaryHistory
                   ? 'bg-gray-400 cursor-not-allowed'
-                  : 'bg-blue-600 hover:bg-blue-700 focus:ring-blue-500'
+                  : 'bg-black hover:bg-gray-800 focus:ring-gray-500'
               }`}
             >
-              <Printer className="h-4 w-4 mr-1" />
               Print
             </button>
           </div>
@@ -496,24 +491,24 @@ const Reports = () => {
 
         {employeeSalaryHistory && (
           <div className="p-6">
-            <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
-              <h3 className="text-sm font-medium text-blue-800 mb-2">Employee Information</h3>
+            <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-6">
+              <h3 className="text-sm font-medium text-gray-800 mb-2">Employee Information</h3>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
                 <div>
-                  <span className="text-blue-600 font-medium">Employee #:</span>
-                  <p className="text-blue-800">{employeeSalaryHistory.employee.employee_number}</p>
+                  <span className="text-gray-600 font-medium">Employee #:</span>
+                  <p className="text-gray-800">{employeeSalaryHistory.employee.employee_number}</p>
                 </div>
                 <div>
-                  <span className="text-blue-600 font-medium">Name:</span>
-                  <p className="text-blue-800">{employeeSalaryHistory.employee.first_name} {employeeSalaryHistory.employee.last_name}</p>
+                  <span className="text-gray-600 font-medium">Name:</span>
+                  <p className="text-gray-800">{employeeSalaryHistory.employee.first_name} {employeeSalaryHistory.employee.last_name}</p>
                 </div>
                 <div>
-                  <span className="text-blue-600 font-medium">Position:</span>
-                  <p className="text-blue-800">{employeeSalaryHistory.employee.position}</p>
+                  <span className="text-gray-600 font-medium">Position:</span>
+                  <p className="text-gray-800">{employeeSalaryHistory.employee.position}</p>
                 </div>
                 <div>
-                  <span className="text-blue-600 font-medium">Department:</span>
-                  <p className="text-blue-800">{employeeSalaryHistory.employee.department_name}</p>
+                  <span className="text-gray-600 font-medium">Department:</span>
+                  <p className="text-gray-800">{employeeSalaryHistory.employee.department_name}</p>
                 </div>
               </div>
             </div>

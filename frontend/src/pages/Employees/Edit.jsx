@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams, Link } from 'react-router-dom';
-import { ArrowLeft, Save } from 'lucide-react';
 import { employeeAPI, departmentAPI } from '../../utils/api';
 
 const EditEmployee = () => {

@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { ArrowLeft, Save } from 'lucide-react';
 import { departmentAPI } from '../../utils/api';
 
 const AddDepartment = () => {

@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Users, DollarSign, BarChart, UserPlus, Building2 } from 'lucide-react';
 import { dashboardAPI } from '../utils/api';
 
 const Dashboard = () => {
@@ -57,8 +56,8 @@ const Dashboard = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
           <div className="flex items-center">
-            <div className="p-3 rounded-full bg-blue-100 text-blue-600">
-              <Users className="h-8 w-8" />
+            <div className="p-3 rounded-full bg-gray-100 text-gray-600">
+              <div className="h-8 w-8 flex items-center justify-center font-bold">E</div>
             </div>
             <div className="ml-4">
               <p className="text-sm font-medium text-gray-500">Total Employees</p>
@@ -70,7 +69,7 @@ const Dashboard = () => {
         <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
           <div className="flex items-center">
             <div className="p-3 rounded-full bg-gray-100 text-gray-600">
-              <Building2 className="h-8 w-8" />
+              <div className="h-8 w-8 flex items-center justify-center font-bold">D</div>
             </div>
             <div className="ml-4">
               <p className="text-sm font-medium text-gray-500">Departments</p>
@@ -81,8 +80,8 @@ const Dashboard = () => {
 
         <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
           <div className="flex items-center">
-            <div className="p-3 rounded-full bg-green-100 text-green-600">
-              <BarChart className="h-8 w-8" />
+            <div className="p-3 rounded-full bg-gray-100 text-gray-600">
+              <div className="h-8 w-8 flex items-center justify-center font-bold">P</div>
             </div>
             <div className="ml-4">
               <p className="text-sm font-medium text-gray-500">This Month Payments</p>
@@ -93,13 +92,18 @@ const Dashboard = () => {
 
         <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
           <div className="flex items-center">
-            <div className="p-3 rounded-full bg-blue-100 text-blue-600">
-              <DollarSign className="h-8 w-8" />
+            <div className="p-3 rounded-full bg-gray-100 text-gray-600">
+              <div className="h-8 w-8 flex items-center justify-center font-bold">₣</div>
             </div>
             <div className="ml-4">
               <p className="text-sm font-medium text-gray-500">Monthly Payroll</p>
               <p className="text-2xl font-semibold text-gray-900">
-                ${parseFloat(stats.currentMonthTotal || 0).toLocaleString()}
+                {new Intl.NumberFormat('en-RW', {
+                  style: 'currency',
+                  currency: 'RWF',
+                  minimumFractionDigits: 0,
+                  maximumFractionDigits: 0,
+                }).format(parseFloat(stats.currentMonthTotal || 0))}
               </p>
             </div>
           </div>
@@ -115,9 +119,8 @@ const Dashboard = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             <Link
               to="/employees/add"
-              className="inline-flex items-center justify-center px-4 py-3 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 transition-colors"
+              className="inline-flex items-center justify-center px-4 py-3 border border-transparent text-sm font-medium rounded-md text-white bg-black hover:bg-gray-800 transition-colors"
             >
-              <UserPlus className="h-4 w-4 mr-2" />
               Add Employee
             </Link>
 
@@ -125,7 +128,6 @@ const Dashboard = () => {
               to="/departments/add"
               className="inline-flex items-center justify-center px-4 py-3 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 transition-colors"
             >
-              <Building2 className="h-4 w-4 mr-2" />
               Add Department
             </Link>
 
@@ -133,7 +135,6 @@ const Dashboard = () => {
               to="/salaries/add"
               className="inline-flex items-center justify-center px-4 py-3 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 transition-colors"
             >
-              <DollarSign className="h-4 w-4 mr-2" />
               Process Payment
             </Link>
 
@@ -141,7 +142,6 @@ const Dashboard = () => {
               to="/reports"
               className="inline-flex items-center justify-center px-4 py-3 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 transition-colors"
             >
-              <BarChart className="h-4 w-4 mr-2" />
               View Reports
             </Link>
           </div>
