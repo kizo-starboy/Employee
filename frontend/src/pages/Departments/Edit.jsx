@@ -1,11 +1,14 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams, Link } from 'react-router-dom';
+import { ArrowLeft, Save } from 'lucide-react';
 import { departmentAPI } from '../../utils/api';
 
 const EditDepartment = () => {
   const [formData, setFormData] = useState({
     departmentName: '',
     grossSalary: '',
+    totalDeduction: '',
+    netSalary: '',
   });
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -23,6 +26,8 @@ const EditDepartment = () => {
         setFormData({
           departmentName: department.department_name || '',
           grossSalary: department.gross_salary || '',
+          totalDeduction: department.total_deduction || '',
+          netSalary: department.net_salary || '',
         });
       } catch (err) {
         setError('Failed to load department data');
@@ -37,18 +42,29 @@ const EditDepartment = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    setFormData((prev) => {
+      const newData = {
+        ...prev,
+        [name]: value,
+      };
+
+      // Auto-calculate net salary when gross salary or total deduction changes
+      if (name === 'grossSalary' || name === 'totalDeduction') {
+        const gross = parseFloat(name === 'grossSalary' ? value : newData.grossSalary) || 0;
+        const deduction = parseFloat(name === 'totalDeduction' ? value : newData.totalDeduction) || 0;
+        newData.netSalary = (gross - deduction).toFixed(2);
+      }
+
+      return newData;
+    });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     // Validate form
-    if (!formData.departmentName || !formData.grossSalary) {
-      setError('Department name and gross salary are required');
+    if (!formData.departmentName || !formData.grossSalary || !formData.totalDeduction || !formData.netSalary) {
+      setError('All fields are required');
       return;
     }
 
@@ -134,7 +150,7 @@ const EditDepartment = () => {
                   name="grossSalary"
                   value={formData.grossSalary}
                   onChange={handleChange}
-                  className="pl-7 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-gray-500 focus:border-gray-500"
+                  className="pl-7 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                   required
                   min="0"
                   step="0.01"
@@ -142,6 +158,57 @@ const EditDepartment = () => {
               </div>
               <p className="mt-1 text-sm text-gray-500">
                 Base gross salary for this department.
+              </p>
+            </div>
+
+            <div>
+              <label htmlFor="totalDeduction" className="block text-sm font-medium text-gray-700">
+                Total Deduction *
+              </label>
+              <div className="mt-1 relative rounded-md shadow-sm">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <span className="text-gray-500 sm:text-sm">$</span>
+                </div>
+                <input
+                  type="number"
+                  id="totalDeduction"
+                  name="totalDeduction"
+                  value={formData.totalDeduction}
+                  onChange={handleChange}
+                  className="pl-7 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                  required
+                  min="0"
+                  step="0.01"
+                />
+              </div>
+              <p className="mt-1 text-sm text-gray-500">
+                Total deductions (taxes, insurance, etc.).
+              </p>
+            </div>
+
+            <div>
+              <label htmlFor="netSalary" className="block text-sm font-medium text-gray-700">
+                Net Salary *
+              </label>
+              <div className="mt-1 relative rounded-md shadow-sm">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <span className="text-gray-500 sm:text-sm">$</span>
+                </div>
+                <input
+                  type="number"
+                  id="netSalary"
+                  name="netSalary"
+                  value={formData.netSalary}
+                  onChange={handleChange}
+                  className="pl-7 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 bg-gray-50"
+                  required
+                  min="0"
+                  step="0.01"
+                  readOnly
+                />
+              </div>
+              <p className="mt-1 text-sm text-gray-500">
+                Net salary (automatically calculated).
               </p>
             </div>
           </div>
